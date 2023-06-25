@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import Button from "../../../../shared/components/Button";
 
 const CreateTest = () => {
-  const { state, service } = useContext(HomeContext);
+  const { state, prevState, service } = useContext(HomeContext);
 
   const {
     register,
@@ -25,10 +25,13 @@ const CreateTest = () => {
   };
 
   useEffect(() => {
-    if (state.createTestRequestStatus.isSuccess()) {
+    if (
+      state.createTestRequestStatus !== prevState?.createTestRequestStatus &&
+      state.createTestRequestStatus.isSuccess()
+    ) {
       alert("Teste criado com sucesso!");
     }
-  }, [state.createTestRequestStatus]);
+  }, [state, prevState]);
 
   return (
     <section className={styles.container}>
@@ -36,18 +39,25 @@ const CreateTest = () => {
       <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.formInputContainer}>
           <input
+            data-cy="input-name"
             {...register("name")}
             placeholder="Digite o nome"
             className={styles.formInput}
           />
           {errors.name && (
-            <span className={styles.formError}>{errors.name.message}</span>
+            <span data-cy="input-name-error" className={styles.formError}>
+              {errors.name.message}
+            </span>
           )}
         </div>
 
-        <Button type="submit">CRIAR</Button>
+        <Button data-cy="create" type="submit">
+          CRIAR
+        </Button>
 
-        <Link to="/tests">VER TESTS</Link>
+        <Link data-cy="view-tests" to="/tests">
+          VER TESTS
+        </Link>
       </form>
     </section>
   );

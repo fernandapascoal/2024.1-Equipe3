@@ -1,6 +1,10 @@
 import { defineConfig } from "cypress";
 import coverageTask from "@cypress/code-coverage/task";
 
+import cucumberPreprocessor from "@badeball/cypress-cucumber-preprocessor";
+import createBundler from "@bahmutov/cypress-esbuild-preprocessor";
+import { createEsbuildPlugin } from "@badeball/cypress-cucumber-preprocessor/esbuild";
+
 export default defineConfig({
   video: false,
   viewportWidth: 1280,
@@ -18,11 +22,24 @@ export default defineConfig({
     },
   },
   e2e: {
-    setupNodeEvents(on, config) {
+    async setupNodeEvents(
+      on: Cypress.PluginEvents,
+      config: Cypress.PluginConfigOptions
+    ): Promise<Cypress.PluginConfigOptions> {
+      await cucumberPreprocessor.addCucumberPreprocessorPlugin(on, config);
+
+      on(
+        "file:preprocessor",
+        createBundler({
+          plugins: [createEsbuildPlugin(config)],
+        })
+      );
+
       coverageTask(on, config);
+
       return config;
     },
     baseUrl: "http://localhost:3000",
-    specPattern: "cypress/e2e/**/*.spec.ts",
+    specPattern: "cypress/e2e/**/*.feature",
   },
 });

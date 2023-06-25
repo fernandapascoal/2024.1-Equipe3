@@ -8,7 +8,7 @@ const router = createBrowserRouter([
     Component: CreateTest,
   },
   {
-    path: "/",
+    path: "/create-test",
     Component: CreateTest,
   },
   {

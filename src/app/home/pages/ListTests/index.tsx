@@ -20,8 +20,13 @@ const ListTests = () => {
             <>
               {tests.map((test) => {
                 return (
-                  <div className={styles.listItem}>
-                    <span className={styles.listItemText}>{test.name}</span>
+                  <div key={test.id} className={styles.listItem}>
+                    <span
+                      data-cy={`test-item-${test.name}`}
+                      className={styles.listItemText}
+                    >
+                      {test.name}
+                    </span>
                   </div>
                 );
               })}

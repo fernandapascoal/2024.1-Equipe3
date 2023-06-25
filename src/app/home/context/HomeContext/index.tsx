@@ -4,9 +4,11 @@ import HomeService from "./service";
 import homeStateReducer from "./reducer";
 import { ApiService } from "../../../../shared/services/ApiService";
 import RequestStatus from "../../../../shared/types/request-status";
+import usePrevious from "../../../../shared/hooks/usePrevious";
 
 interface HomeContextProps {
   state: HomeState;
+  prevState?: HomeState;
   service: HomeService;
 }
 
@@ -24,6 +26,8 @@ export const HomeProvider = ({ children }: HomeProviderProps) => {
     getTestsRequestStatus: RequestStatus.idle(),
   });
 
+  const prevState = usePrevious(state);
+
   const apiService = useMemo(() => {
     return new ApiService({});
   }, []);
@@ -40,6 +44,7 @@ export const HomeProvider = ({ children }: HomeProviderProps) => {
     <HomeContext.Provider
       value={{
         state,
+        prevState,
         service,
       }}
     >

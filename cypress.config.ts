@@ -1,6 +1,4 @@
 import { defineConfig } from "cypress";
-import coverageTask from "@cypress/code-coverage/task";
-
 import cucumberPreprocessor from "@badeball/cypress-cucumber-preprocessor";
 import createBundler from "@bahmutov/cypress-esbuild-preprocessor";
 import { createEsbuildPlugin } from "@badeball/cypress-cucumber-preprocessor/esbuild";
@@ -35,7 +33,8 @@ export default defineConfig({
         })
       );
 
-      coverageTask(on, config);
+      // TODO: Fix coverage
+      // coverageTask(on, config);
 
       return config;
     },

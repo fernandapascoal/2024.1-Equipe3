@@ -23,3 +23,11 @@ WHEN escolho a opção “Solicitar Recursos”
 AND preencho o campo “Especificar itens não listados” com “Cadeira”
 THEN continuo na página de "Recursos"
 AND Vejo a solicitação em andamento com os campos “Itens” e “Quantidades e observações” vazios e o campo “Itens não listados” preenchido
+
+SCENARIO: Criar solicitação de manutenção após o uso da sala
+GIVEN que estou logado no sistema como “Professor” na página de "Manutenções"
+AND Na lista de solicitações de manutenção vejo que a reserva da sala “E001” na data "17/12/24" das "14:00" às "15:00" está sem nenhum pedido de manutenção
+WHEN Descrevo os problemas da sala no campo “O que havia de errado na sala?”
+AND Seleciono a opção “Solicitar Manutenção”
+THEN ainda estou na página de "Manutenções"
+AND vejo a solicitação realizada associada à sala “E001” na data "17/12/24" das "14:00" às "15:00"

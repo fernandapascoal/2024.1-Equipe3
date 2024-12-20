@@ -23,3 +23,4 @@ WHEN escolho a opção “Solicitar Recursos”
 AND preencho o campo “Especificar itens não listados” com “Cadeira”
 THEN continuo na página de "Recursos"
 AND Vejo a solicitação em andamento com os campos “Itens” e “Quantidades e observações” vazios e o campo “Itens não listados” preenchido
+THEN ALTERAÇÃO AQUI

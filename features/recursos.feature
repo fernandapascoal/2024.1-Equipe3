@@ -15,3 +15,11 @@ WHEN seleciono a opção “Excluir”
 AND seleciono a opção “Excluir solicitação”
 THEN estou na página "Recursos"
 AND não vejo mais a solicitação na lista associada à sala “E001”na data "17/12/24" das "10:00" às "14:30"
+
+SCENARIO: Criar solicitação de recurso não listado
+GIVEN que estou logado no sistema como “Professor” na página de "Recursos"
+AND vejo que fiz uma reserva para a sala “E002” na data "17/12/2024" no horário de "10:00” às “14h30"
+WHEN escolho a opção “Solicitar Recursos”
+AND preencho o campo “Especificar itens não listados” com “Cadeira”
+THEN continuo na página de "Recursos"
+AND Vejo a solicitação em andamento com os campos “Itens” e “Quantidades e observações” vazios e o campo “Itens não listados” preenchido
